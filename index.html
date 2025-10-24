@@ -1,8 +1,82 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-</head>
-<body>
-</body>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Multi-EmulateurJS</title>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        background: #000;
+        color: white;
+        font-family: sans-serif;
+      }
+      #menu {
+        padding: 10px;
+        background: #111;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      a {
+        color: #00aaff;
+        text-decoration: none;
+        background: #222;
+        padding: 5px 10px;
+        border-radius: 8px;
+        transition: background 0.2s;
+      }
+      a:hover {
+        background: #00aaff;
+        color: #fff;
+      }
+      #game {
+        width: 100%;
+        height: calc(100% - 50px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="menu">
+      <a href="#" onclick="loadGame('https://archive.org/download/nes-test-roms/Donkey%20Kong%20%28World%29.nes','nes','Donkey Kong (NES)')">Donkey Kong</a>
+      <a href="#" onclick="loadGame('https://archive.org/download/nes-test-roms/Super%20Mario%20Bros.%20%28World%29.nes','nes','Super Mario Bros')">Mario</a>
+      <a href="#" onclick="loadGame('https://archive.org/download/sms-homebrew/Astro%20Force.sms','sms','Astro Force (SMS)')">Astro Force</a>
+      <!-- Tu peux ajouter d’autres jeux ici -->
+    </div>
+
+    <div id="game"></div>
+
+    <script>
+      // Chemin vers les données EmulatorJS
+      EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+
+      function loadGame(url, core, name) {
+        // On vide l’ancien jeu
+        document.getElementById("game").innerHTML = "";
+
+        // Variables globales EmulatorJS
+        EJS_player = "#game";
+        EJS_gameUrl = url;
+        EJS_core = core;
+        EJS_gameName = name;
+        EJS_color = "#0064ff";
+        EJS_startOnLoaded = true;
+
+        // On recharge l’émulateur
+        const script = document.createElement("script");
+        script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
+        document.body.appendChild(script);
+      }
+
+      // Charger un jeu par défaut au démarrage :
+      window.onload = () => {
+        loadGame(
+          "https://archive.org/download/nes-test-roms/Donkey%20Kong%20%28World%29.nes",
+          "nes",
+          "Donkey Kong (NES)"
+        );
+      };
+    </script>
+  </body>
 </html>
