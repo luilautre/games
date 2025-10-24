@@ -75,7 +75,7 @@
       <button onclick="loadGame('roms/zelda-ocarina-of-time.n64','n64','Zelda: Ocarina of Time')">
         Zelda: Ocarina of Time (N64)
       </button>
-      <button onclick="loadGame('roms/sonic-the-hedgehog-3.gen','segaMD','Sonic 3')">
+      <button onclick="loadGame('roms/sonic-the-hedgehog-3.bin','segaMD','Sonic 3')">
         Sonic the Hedgehog 3 (Mega Drive)
       </button>
     </div>
@@ -94,7 +94,7 @@
         const gameContainer = document.getElementById("game-container");
         gameContainer.style.display = "block";
 
-        // Vide le conteneur
+        // Vide le conteneur au cas où
         document.getElementById("game").innerHTML = "";
 
         // Définit les variables EmulatorJS
@@ -112,8 +112,14 @@
       }
 
       function quitGame() {
-        // Arrête le jeu en vidant le conteneur
-        document.getElementById("game").innerHTML = "";
+        const oldGame = document.getElementById("game");
+        const newGame = document.createElement("div");
+        newGame.id = "game";
+
+        // Remplace l'ancien conteneur pour arrêter le son et le jeu
+        document.getElementById("game-container").replaceChild(newGame, oldGame);
+
+        // Cache le conteneur et affiche le menu
         document.getElementById("game-container").style.display = "none";
         document.getElementById("menu").style.display = "flex";
       }
