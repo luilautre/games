@@ -2,74 +2,118 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Multi-EmulateurJS</title>
+    <title>Ma console en ligne 🎮</title>
     <style>
       html, body {
         margin: 0;
         height: 100%;
-        background: #000;
-        color: white;
-        font-family: sans-serif;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: white;
       }
+
       #menu {
-        padding: 10px;
-        background: #111;
         display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        gap: 15px;
+        transition: opacity 0.4s;
       }
-      a {
-        color: #00aaff;
-        text-decoration: none;
-        background: #222;
-        padding: 5px 10px;
-        border-radius: 8px;
+
+      button {
+        background: #0078ff;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        cursor: pointer;
         transition: background 0.2s;
       }
-      a:hover {
-        background: #00aaff;
-        color: #fff;
+
+      button:hover {
+        background: #005ecc;
       }
+
+      #game-container {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: black;
+      }
+
       #game {
         width: 100%;
-        height: calc(100% - 50px);
+        height: 100%;
+      }
+
+      #quit {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        color: black;
+        border: none;
+        border-radius: 8px;
+        padding: 5px 10px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 9999;
+      }
+
+      #quit:hover {
+        background: white;
       }
     </style>
   </head>
 
   <body>
     <div id="menu">
-      <a href="#" onclick="loadGame('https://archive.org/download/nes-test-roms/Donkey%20Kong%20%28World%29.nes','nes','Donkey Kong (NES)')">Donkey Kong</a>
-      <a href="#" onclick="loadGame('https://archive.org/download/nes-test-roms/Super%20Mario%20Bros.%20%28World%29.nes','nes','Super Mario Bros')">Mario</a>
-      <a href="#" onclick="loadGame('https://archive.org/download/sms-homebrew/Astro%20Force.sms','sms','Astro Force (SMS)')">Astro Force</a>
-      <!-- Tu peux ajouter d’autres jeux ici -->
+      <h2>Choisis ton jeu :</h2>
+      <button onclick="loadGame('https://archive.org/download/nes-test-roms/Donkey%20Kong%20%28World%29.nes','nes','Donkey Kong')">Donkey Kong (NES)</button>
+      <button onclick="loadGame('https://archive.org/download/nes-test-roms/Super%20Mario%20Bros.%20%28World%29.nes','nes','Super Mario Bros')">Super Mario Bros (NES)</button>
+      <button onclick="loadGame('https://archive.org/download/sms-homebrew/Astro%20Force.sms','sms','Astro Force')">Astro Force (SMS)</button>
     </div>
 
-    <div id="game"></div>
+    <div id="game-container">
+      <button id="quit" onclick="quitGame()">⏹ Quitter</button>
+      <div id="game"></div>
+    </div>
 
     <script>
-      // Chemin vers les données EmulatorJS
       EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
 
       function loadGame(url, core, name) {
-        // On vide l’ancien jeu
+        // Cache le menu et affiche le conteneur du jeu
+        document.getElementById("menu").style.display = "none";
+        const gameContainer = document.getElementById("game-container");
+        gameContainer.style.display = "block";
+
+        // Vide le conteneur
         document.getElementById("game").innerHTML = "";
 
-        // Variables globales EmulatorJS
+        // Définit les variables EmulatorJS
         EJS_player = "#game";
         EJS_gameUrl = url;
         EJS_core = core;
         EJS_gameName = name;
-        EJS_color = "#0064ff";
+        EJS_color = "#0078ff";
         EJS_startOnLoaded = true;
 
-        // On recharge l’émulateur
+        // Recharge l’émulateur
         const script = document.createElement("script");
         script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
         document.body.appendChild(script);
       }
-        );
-      };
+
+      function quitGame() {
+        // Arrête le jeu en vidant le conteneur
+        document.getElementById("game").innerHTML = "";
+        document.getElementById("game-container").style.display = "none";
+        document.getElementById("menu").style.display = "flex";
+      }
     </script>
   </body>
 </html>
