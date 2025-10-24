@@ -49,22 +49,26 @@
         height: 100%;
       }
 
+      /* Nouveau style pour le bouton Quitter */
       #quit {
-        position: absolute;
+        position: fixed;   /* reste au-dessus même si tu scrolles */
         top: 10px;
-        left: 10px;
-        background: rgba(255, 255, 255, 0.8);
-        color: black;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
         border: none;
-        border-radius: 8px;
-        padding: 5px 10px;
+        border-radius: 6px;
+        padding: 8px 12px;
         font-weight: bold;
         cursor: pointer;
         z-index: 9999;
+        font-size: 1em;
+        transition: background 0.2s, transform 0.2s;
       }
 
       #quit:hover {
-        background: white;
+        background: rgba(0, 0, 0, 0.85);
+        transform: scale(1.05);
       }
     </style>
   </head>
