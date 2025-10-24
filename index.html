@@ -81,7 +81,7 @@
     </div>
 
     <div id="game-container">
-      <button id="quit" onclick="quitGame()">⏹ Quitter</button>
+      <button id="quit" onclick="window.location.href='https://luilautre.github.io/games/'">⏹ Quitter</button>
       <div id="game"></div>
     </div>
 
@@ -109,19 +109,6 @@
         const script = document.createElement("script");
         script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
         document.body.appendChild(script);
-      }
-
-      function quitGame() {
-        const oldGame = document.getElementById("game");
-        const newGame = document.createElement("div");
-        newGame.id = "game";
-
-        // Remplace l'ancien conteneur pour arrêter le son et le jeu
-        document.getElementById("game-container").replaceChild(newGame, oldGame);
-
-        // Cache le conteneur et affiche le menu
-        document.getElementById("game-container").style.display = "none";
-        document.getElementById("menu").style.display = "flex";
       }
     </script>
   </body>
