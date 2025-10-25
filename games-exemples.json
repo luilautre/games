@@ -1,0 +1,49 @@
+{
+  "consoles": [
+    {
+      "name": "NES",
+      "extension": ".nes",
+      "core": "nes"
+    },
+    {
+      "name": "SNES",
+      "extension": ".smc",
+      "core": "snes"
+    },
+    {
+      "name": "N64",
+      "extension": ".n64",
+      "core": "n64"
+    },
+    {
+      "name": "Mega Drive / Genesis",
+      "extension": ".gen",
+      "core": "segaMD"
+    },
+    {
+      "name": "Master System",
+      "extension": ".sms",
+      "core": "sms"
+    },
+    {
+      "name": "Game Gear",
+      "extension": ".gg",
+      "core": "gg"
+    },
+    {
+      "name": "Game Boy",
+      "extension": ".gb",
+      "core": "gb"
+    },
+    {
+      "name": "Game Boy Color",
+      "extension": ".gbc",
+      "core": "gbc"
+    },
+    {
+      "name": "Game Boy Advance",
+      "extension": ".gba",
+      "core": "gba"
+    }
+  ]
+}
