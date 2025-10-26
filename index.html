@@ -30,10 +30,28 @@
   </div>
 </section>
 
-  <div id="game-container">
-    <button id="quit" onclick="window.location.href='/games/'">⏹ Quitter</button>
-    <div id="game"></div>
-  </div>
+<div id="game-container">
+  <button id="quit" onclick="window.location.href='/games/'" 
+          style="
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background-color: var(--title-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            transition: background 0.2s, transform 0.2s;">
+    ⏹ Quitter
+  </button>
+
+  <div id="game"></div>
+</div>
+
 
   <script src="/script.js"></script>
   <script>
