@@ -4,99 +4,19 @@
   <meta charset="UTF-8" />
   <title>Ma console en ligne 🎮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    :root {
-      --main-blue: #007BFF;
-      --main-blue-dark: #005ecc;
-      --bg-color: white;
-      --text-color: #222;
-    }
-
-    html, body {
-      margin: 0;
-      height: 100%;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    #menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      gap: 15px;
-      text-align: center;
-    }
-
-    button {
-      background: var(--main-blue);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 10px 20px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    button:hover {
-      background: var(--main-blue-dark);
-    }
-
-    #game-container {
-      display: none;
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background: black;
-    }
-
-    #game {
-      width: 100%;
-      height: 100%;
-    }
-
-    #quit {
-      position: fixed;
-      top: 70px; /* en dessous du header */
-      right: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 12px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 9999;
-      font-size: 1em;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    #quit:hover {
-      background: rgba(0, 0, 0, 0.85);
-      transform: scale(1.05);
-    }
-  </style>
+  <link rel="stylesheet" href="luilautre.github.io/style.css">
 </head>
 
 <body>
-  <header>
-    <nav class="navbar">
-      <a href="/index.html" class="logo">🏠 luilautre</a>
-      <button id="menu-toggle">☰</button>
-      <div class="nav-links">
-        <a href="/message.html">Messages</a>
-        <a href="/share">Fichiers</a>
-        <a href="/games">Jeux</a>
-        <a href="/scratch-site">Code</a>
-        <a href="/comments.html">Bugs</a>
-      </div>
-      <button id="theme-toggle" aria-label="Changer de thème">🌙</button>
-    </nav>
+  <header id="site-header">
+    <div id="buttons">
+      <a href="/index.html"><p>Accueil</p></a>
+      <a href="/message.html"><p>Messages</p></a>
+      <a href="/share"><p>Fichiers</p></a>
+      <a href="/games"><p>Jeux</p></a>
+      <a href="/scratch-site"><p>Code</p></a>
+      <a href="/comments.html"><p>Bugs</p></a>
+    </div>
   </header>
 
   <div id="menu">
@@ -128,21 +48,12 @@
       EJS_gameUrl = url;
       EJS_core = core;
       EJS_gameName = name;
-      EJS_color = "#007BFF";
+      EJS_color = getComputedStyle(document.documentElement).getPropertyValue('--title-color').trim();
       EJS_startOnLoaded = true;
 
       const script = document.createElement("script");
       script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
       document.body.appendChild(script);
-    }
-
-    // === Menu burger mobile ===
-    const menuToggle = document.getElementById('menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    if (menuToggle) {
-      menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-      });
     }
   </script>
 </body>
