@@ -20,14 +20,15 @@
   </header>
 
   <div id="menu">
-    <h2>Choisis ton jeu :</h2>
-    <button onclick="loadGame('roms/zelda-ocarina-of-time.n64','n64','Zelda: Ocarina of Time')">
-      Zelda: Ocarina of Time (N64)
-    </button>
-    <button onclick="loadGame('roms/sonic-the-hedgehog-3.gen','segaMD','Sonic 3')">
-      Sonic the Hedgehog 3 (Mega Drive)
-    </button>
-  </div>
+  <h2>Choisis ton jeu :</h2>
+  <a href="#" onclick="loadGame('roms/zelda-ocarina-of-time.n64','n64','Zelda: Ocarina of Time')">
+    <p>Zelda: Ocarina of Time (N64)</p>
+  </a>
+  <a href="#" onclick="loadGame('roms/sonic-the-hedgehog-3.gen','segaMD','Sonic 3')">
+    <p>Sonic the Hedgehog 3 (Mega Drive)</p>
+  </a>
+</div>
+
 
   <div id="game-container">
     <button id="quit" onclick="window.location.href='/games/'">⏹ Quitter</button>
