@@ -19,7 +19,7 @@
     </div>
   </header>
 
-  <div id="menu">
+  <div id="games-menu">
   <h2>Choisis ton jeu :</h2>
   <a href="#" onclick="loadGame('roms/zelda-ocarina-of-time.n64','n64','Zelda: Ocarina of Time')">
     <p>Zelda: Ocarina of Time (N64)</p>
@@ -40,7 +40,7 @@
     EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
 
     function loadGame(url, core, name) {
-      document.getElementById("menu").style.display = "none";
+      document.getElementById("games-menu").style.display = "none";
       const gameContainer = document.getElementById("game-container");
       gameContainer.style.display = "block";
       document.getElementById("game").innerHTML = "";
