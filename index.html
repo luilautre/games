@@ -17,6 +17,7 @@
 }
 </style>
 </head>
+
 <body>
 
 <header id="site-header">
@@ -34,7 +35,7 @@
       transition:all 0.3s;">🌙</button>
 </header>
 
-<section style="display: flex; justify-content: center; margin-top: 20px;">
+<section style="display:flex; justify-content:center; margin-top:20px;">
   <div id="games-menu">
     <h2>Choisis ton jeu :</h2>
     <a href="#" onclick="loadGame('roms/zelda-ocarina-of-time.n64','n64','Zelda: Ocarina of Time')">
@@ -56,18 +57,25 @@
   <div id="game"></div>
 </div>
 
-<script src="/script.js"></script>
+<!-- Précharge le loader EmulatorJS une seule fois -->
+<script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 <script>
+let loaderLoaded = true; // loader déjà chargé
+
 // ===== EmulatorJS configuration =====
 EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-let loaderLoaded = false;
 
 function loadGame(url, core, name) {
-  document.getElementById("games-menu").style.display = "none";
-  const gameContainer = document.getElementById("game-container");
-  gameContainer.style.display = "block";
-  document.getElementById("game").innerHTML = "";
+  const menu = document.getElementById("games-menu");
+  const container = document.getElementById("game-container");
+  const gameDiv = document.getElementById("game");
 
+  // Masquer le menu, afficher le jeu
+  menu.style.display = "none";
+  container.style.display = "block";
+  gameDiv.innerHTML = "";
+
+  // Config du jeu
   EJS_player = "#game";
   EJS_gameUrl = url;
   EJS_core = core;
@@ -77,33 +85,26 @@ function loadGame(url, core, name) {
     .trim();
   EJS_startOnLoaded = true;
 
-  if (!loaderLoaded) {
-    const script = document.createElement("script");
-    script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
-    script.onload = () => loaderLoaded = true;
-    document.body.appendChild(script);
-  } else {
-    if (typeof EJS_load === "function") EJS_load();
-  }
+  // Lance le jeu
+  if (typeof EJS_load === "function") EJS_load();
 }
 
 // rendre accessible aux onclick
 window.loadGame = loadGame;
 
-
 // ===== Gestion du thème =====
 const themeToggle = document.getElementById('theme-toggle');
-
 themeToggle.addEventListener('click', () => {
   const current = document.documentElement.getAttribute('data-theme');
   if (current === 'dark') {
     document.documentElement.removeAttribute('data-theme');
     themeToggle.textContent = '🌙';
   } else {
-    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.setAttribute('data-theme','dark');
     themeToggle.textContent = '☀️';
   }
 });
 </script>
+
 </body>
 </html>
