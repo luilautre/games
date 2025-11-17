@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <title>Ma console en ligne 🎮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://luilautre.github.io/style.css">
+
+<style>
+:is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,
+#credential_picker_container,#credentials-picker-container,#credential_picker_iframe,
+[id*='google-one-tap-iframe'],#google-one-tap-popup-container,.google-one-tap__module,
+.google-one-tap-modal-div,#amp_floatingAdDiv,#ez-content-blocker-container) {
+  display:none!important;
+  min-height:0!important;
+  height:0!important;
+}
+</style>
 </head>
 <body>
 
@@ -16,20 +27,11 @@
     <a href="/games"><p>Jeux</p></a>
     <a href="/scratch-site"><p>Code</p></a>
   </div>
-  <button id="theme-toggle" aria-label="Changer de thème" 
-          style="
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: 2px solid var(--title-color);
-            color: var(--title-color);
-            border-radius: 50%;
-            padding: 8px 10px;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-          ">🌙</button>
+
+  <button id="theme-toggle" aria-label="Changer de thème"
+    style="position:absolute; top:10px; right:10px; background:none; border:2px solid var(--title-color);
+      color:var(--title-color); border-radius:50%; padding:8px 10px; font-size:20px; cursor:pointer;
+      transition:all 0.3s;">🌙</button>
 </header>
 
 <section style="display: flex; justify-content: center; margin-top: 20px;">
@@ -44,22 +46,11 @@
   </div>
 </section>
 
-<div id="game-container">
-  <button id="quit" onclick="window.location.href='/games/'" 
-          style="
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background-color: var(--title-color);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 10000;
-            transition: background 0.2s, transform 0.2s;">
+<div id="game-container" style="display:none;">
+  <button id="quit" onclick="window.location.href='/games/'"
+    style="position:fixed; top:70px; right:20px; background-color:var(--title-color);
+      color:white; border:none; border-radius:12px; padding:10px 20px; font-size:1.2em;
+      font-weight:bold; cursor:pointer; z-index:10000; transition:0.2s;">
     ⏹ Quitter
   </button>
   <div id="game"></div>
@@ -67,38 +58,52 @@
 
 <script src="/script.js"></script>
 <script>
-  EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+// ===== EmulatorJS configuration =====
+EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+let loaderLoaded = false;
 
-  function loadGame(url, core, name) {
-    document.getElementById("games-menu").style.display = "none";
-    const gameContainer = document.getElementById("game-container");
-    gameContainer.style.display = "block";
-    document.getElementById("game").innerHTML = "";
+function loadGame(url, core, name) {
+  document.getElementById("games-menu").style.display = "none";
+  const gameContainer = document.getElementById("game-container");
+  gameContainer.style.display = "block";
+  document.getElementById("game").innerHTML = "";
 
-    EJS_player = "#game";
-    EJS_gameUrl = url;
-    EJS_core = core;
-    EJS_gameName = name;
-    EJS_color = getComputedStyle(document.documentElement).getPropertyValue('--title-color').trim();
-    EJS_startOnLoaded = true;
+  EJS_player = "#game";
+  EJS_gameUrl = url;
+  EJS_core = core;
+  EJS_gameName = name;
+  EJS_color = getComputedStyle(document.documentElement)
+    .getPropertyValue('--title-color')
+    .trim();
+  EJS_startOnLoaded = true;
 
+  if (!loaderLoaded) {
     const script = document.createElement("script");
     script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
+    script.onload = () => loaderLoaded = true;
     document.body.appendChild(script);
+  } else {
+    if (typeof EJS_load === "function") EJS_load();
   }
+}
 
-  // 🌙 Bouton bascule clair/sombre
-  const themeToggle = document.getElementById('theme-toggle');
-  themeToggle.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    if(current === 'dark') {
-      document.documentElement.removeAttribute('data-theme');
-      themeToggle.textContent = '🌙';
-    } else {
-      document.documentElement.setAttribute('data-theme','dark');
-      themeToggle.textContent = '☀️';
-    }
-  });
+// rendre accessible aux onclick
+window.loadGame = loadGame;
+
+
+// ===== Gestion du thème =====
+const themeToggle = document.getElementById('theme-toggle');
+
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  if (current === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+    themeToggle.textContent = '🌙';
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeToggle.textContent = '☀️';
+  }
+});
 </script>
 </body>
 </html>
