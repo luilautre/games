@@ -38,10 +38,12 @@
 <section style="display:flex; justify-content:center; margin-top:20px;">
   <div id="games-menu">
     <h2>Choisis ton jeu :</h2>
-    <a href="#" onclick="loadGame('roms/zelda-ocarina-of-time.n64','n64','Zelda: Ocarina of Time')">
+
+    <a href="#" onclick="event.preventDefault(); loadGame('roms/zelda-ocarina-of-time.n64','n64','Zelda: Ocarina of Time');">
       <p>Zelda: Ocarina of Time (N64)</p>
     </a>
-    <a href="#" onclick="loadGame('roms/sonic-the-hedgehog-3.gen','segaMD','Sonic 3')">
+
+    <a href="#" onclick="event.preventDefault(); loadGame('roms/sonic-the-hedgehog-3.gen','segaMD','Sonic 3');">
       <p>Sonic the Hedgehog 3 (Mega Drive)</p>
     </a>
   </div>
