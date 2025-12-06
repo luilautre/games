@@ -2,22 +2,29 @@
 <html lang="fr" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>Ma console en ligne 🎮</title>
+  <title>Les jeux de luilautre</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Ton CSS principal -->
   <link rel="stylesheet" href="https://luilautre.github.io/style.css">
 
-<style>
-:is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,
-#credential_picker_container,#credentials-picker-container,#credential_picker_iframe,
-[id*='google-one-tap-iframe'],#google-one-tap-popup-container,.google-one-tap__module,
-.google-one-tap-modal-div,#amp_floatingAdDiv,#ez-content-blocker-container) {
-  display:none!important;
-  min-height:0!important;
-  height:0!important;
-}
-</style>
-</head>
+  <!-- ANNULER les pubs Google & Taboola -->
+  <style>
+  :is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,
+  #credential_picker_container,#credentials-picker-container,#credential_picker_iframe,
+  [id*='google-one-tap-iframe'],#google-one-tap-popup-container,.google-one-tap__module,
+  .google-one-tap-modal-div,#amp_floatingAdDiv,#ez-content-blocker-container) {
+    display:none!important;
+    min-height:0!important;
+    height:0!important;
+  }
+  </style>
 
+  <!-- EmulatorJS officiel -->
+  <script src="https://cdn.emulatorjs.org/stable/emulator.js"></script>
+  <link rel="stylesheet" href="https://cdn.emulatorjs.org/stable/emulator.css">
+
+</head>
 <body>
 
 <header id="site-header">
@@ -30,9 +37,10 @@
   </div>
 
   <button id="theme-toggle" aria-label="Changer de thème"
-    style="position:absolute; top:10px; right:10px; background:none; border:2px solid var(--title-color);
-      color:var(--title-color); border-radius:50%; padding:8px 10px; font-size:20px; cursor:pointer;
-      transition:all 0.3s;">🌙</button>
+    style="position:absolute; top:10px; right:10px; background:none; 
+    border:2px solid var(--title-color); color:var(--title-color); 
+    border-radius:50%; padding:8px 10px; font-size:20px; cursor:pointer; 
+    transition:all 0.3s;">🌙</button>
 </header>
 
 <section style="display:flex; justify-content:center; margin-top:20px;">
@@ -46,6 +54,7 @@
     <a href="#" onclick="event.preventDefault(); loadGame('roms/sonic-the-hedgehog-3.gen','segaMD','Sonic 3');">
       <p>Sonic the Hedgehog 3 (Mega Drive)</p>
     </a>
+
     <a href="#" onclick="event.preventDefault(); loadGame('roms/Hello_World.gbc','gbc','Hello World');">
       <p>Hello World (GBC)</p>
     </a>
@@ -55,60 +64,59 @@
 <div id="game-container" style="display:none;">
   <button id="quit" onclick="window.location.href='/games/'"
     style="position:fixed; top:70px; right:20px; background-color:var(--title-color);
-      color:white; border:none; border-radius:12px; padding:10px 20px; font-size:1.2em;
-      font-weight:bold; cursor:pointer; z-index:10000; transition:0.2s;">
+    color:white; border:none; border-radius:12px; padding:10px 20px;
+    font-size:1.2em; font-weight:bold; cursor:pointer; z-index:10000;">
     ⏹ Quitter
   </button>
+
   <div id="game"></div>
 </div>
 
-<!-- Précharge le loader EmulatorJS une seule fois -->
+<!-- Loader EmulatorJS OFFICIEL -->
 <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 <script>
-let loaderLoaded = true; // loader déjà chargé
+  // Config du chemin EmulatorJS
+  EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
 
-// ===== EmulatorJS configuration =====
-EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+  function loadGame(url, core, name) {
+    const menu = document.getElementById("games-menu");
+    const container = document.getElementById("game-container");
+    const gameDiv = document.getElementById("game");
 
-function loadGame(url, core, name) {
-  const menu = document.getElementById("games-menu");
-  const container = document.getElementById("game-container");
-  const gameDiv = document.getElementById("game");
+    // Masquer menu & afficher jeu
+    menu.style.display = "none";
+    container.style.display = "block";
+    gameDiv.innerHTML = "";
 
-  // Masquer le menu, afficher le jeu
-  menu.style.display = "none";
-  container.style.display = "block";
-  gameDiv.innerHTML = "";
+    // Config de l'émulateur
+    EJS_player = "#game";
+    EJS_gameUrl = url;
+    EJS_core = core;
+    EJS_gameName = name;
+    EJS_color = getComputedStyle(document.documentElement)
+      .getPropertyValue('--title-color')
+      .trim();
+    EJS_startOnLoaded = true;
 
-  // Config du jeu
-  EJS_player = "#game";
-  EJS_gameUrl = url;
-  EJS_core = core;
-  EJS_gameName = name;
-  EJS_color = getComputedStyle(document.documentElement)
-    .getPropertyValue('--title-color')
-    .trim();
-  EJS_startOnLoaded = true;
-
-  // Lance le jeu
-  if (typeof EJS_load === "function") EJS_load();
-}
-
-// rendre accessible aux onclick
-window.loadGame = loadGame;
-
-// ===== Gestion du thème =====
-const themeToggle = document.getElementById('theme-toggle');
-themeToggle.addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme');
-  if (current === 'dark') {
-    document.documentElement.removeAttribute('data-theme');
-    themeToggle.textContent = '🌙';
-  } else {
-    document.documentElement.setAttribute('data-theme','dark');
-    themeToggle.textContent = '☀️';
+    // Démarre l'émulateur
+    if (typeof EJS_load === "function") EJS_load();
   }
-});
+
+  // accès global
+  window.loadGame = loadGame;
+
+  // Gestion du thème
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    if (current === 'dark') {
+      document.documentElement.removeAttribute('data-theme');
+      themeToggle.textContent = '🌙';
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      themeToggle.textContent = '☀️';
+    }
+  });
 </script>
 
 </body>
