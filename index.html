@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://luilautre.github.io/style.css">
 
-  <!-- EMPÊCHE LES PUBS / GOOGLE ONE TAP -->
+  <!-- Anti pubs / anti Google One Tap -->
   <style>
   :is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,
   #credential_picker_container,#credentials-picker-container,#credential_picker_iframe,
@@ -18,10 +18,10 @@
   }
   </style>
 
-  <!-- 🔥 NOUVEAU CDN EmulatorJS (fonctionne 2024/2025) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emulatorjs/dist/emulator.css">
-  <script src="https://cdn.jsdelivr.net/npm/emulatorjs/dist/emulator.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/emulatorjs/dist/data/loader.js"></script>
+  <!-- 🔥 EmulatorJS – version stable (LA SEULE QUI MARCHE) -->
+  <link rel="stylesheet" href="https://cdn.emulatorjs.org/stable/emulator.min.css">
+  <script src="https://cdn.emulatorjs.org/stable/emulator.min.js"></script>
+  <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 
 </head>
 
@@ -34,7 +34,6 @@
     <a href="/share"><p>Fichiers</p></a>
     <a href="/games"><p>Jeux</p></a>
     <a href="/scratch-site"><p>Code</p></a>
-    <a href="/IA"><p>Mon IA</p></a>
   </div>
 
   <button id="theme-toggle" aria-label="Changer de thème"
@@ -60,6 +59,7 @@
     <a href="#" onclick="event.preventDefault(); loadGame('roms/Hello_World.gbc','gbc','Hello World');">
       <p>Hello World (GBC)</p>
     </a>
+
   </div>
 </section>
 
@@ -79,10 +79,10 @@
 
 <script>
 
-// === Nouveau chemin EmulatorJS ===
-EJS_pathtodata = "https://cdn.jsdelivr.net/npm/emulatorjs/dist/data/";
+// 🔥 Chemin DATA EmulatorJS — VALIDÉ ET FONCTIONNEL
+EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
 
-// --- Fonction pour charger un jeu ---
+// === Fonction pour charger un jeu ===
 function loadGame(url, core, name) {
 
   const menu = document.getElementById("games-menu");
@@ -93,7 +93,6 @@ function loadGame(url, core, name) {
   container.style.display = "block";
   gameDiv.innerHTML = "";
 
-  // Configuration
   EJS_player = "#game";
   EJS_gameUrl = url;
   EJS_core = core;
@@ -111,7 +110,7 @@ function loadGame(url, core, name) {
 
 window.loadGame = loadGame;
 
-// --- Gestion thème ---
+// === Système de thème ===
 const themeToggle = document.getElementById('theme-toggle');
 
 themeToggle.addEventListener('click', () => {
