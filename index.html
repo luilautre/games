@@ -17,12 +17,6 @@
     height:0!important;
   }
   </style>
-
-  <!-- 🔥 EmulatorJS – version stable (LA SEULE QUI MARCHE) -->
-  <link rel="stylesheet" href="https://cdn.emulatorjs.org/stable/emulator.min.css">
-  <script src="https://cdn.emulatorjs.org/stable/emulator.min.js"></script>
-  <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
-
 </head>
 
 <body>
@@ -48,68 +42,14 @@
   <div id="games-menu">
     <h2>Choisis ton jeu :</h2>
 
-    <a href="#" onclick="event.preventDefault(); loadGame('roms/zelda-ocarina-of-time.n64','n64','Zelda: Ocarina of Time');">
-      <p>Zelda: Ocarina of Time (N64)</p>
-    </a>
-
-    <a href="#" onclick="event.preventDefault(); loadGame('roms/sonic-the-hedgehog-3.gen','segaMD','Sonic 3');">
-      <p>Sonic the Hedgehog 3 (Mega Drive)</p>
-    </a>
-
-    <a href="#" onclick="event.preventDefault(); loadGame('roms/Hello_World.gbc','gbc','Hello World');">
-      <p>Hello World (GBC)</p>
-    </a>
+    <a href="test.html"><p>Zelda: Ocarina of Time (N64)</p></a>
+    <a href="test.html"><p>Sonic the Hedgehog 3 (Mega Drive)</p></a>
+    <a href="test.html"><p>Hello World (GBC)</p></a>
 
   </div>
 </section>
 
-<!-- Zone du jeu -->
-<div id="game-container" style="display:none;">
-
-  <button id="quit"
-      onclick="window.location.href='/games/'"
-      style="position:fixed; top:70px; right:20px; background-color:var(--title-color);
-      color:white; border:none; border-radius:12px; padding:10px 20px; font-size:1.2em;
-      font-weight:bold; cursor:pointer; z-index:10000; transition:0.2s;">
-    ⏹ Quitter
-  </button>
-
-  <div id="game"></div>
-</div>
-
 <script>
-
-// 🔥 Chemin DATA EmulatorJS — VALIDÉ ET FONCTIONNEL
-EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-
-// === Fonction pour charger un jeu ===
-function loadGame(url, core, name) {
-
-  const menu = document.getElementById("games-menu");
-  const container = document.getElementById("game-container");
-  const gameDiv = document.getElementById("game");
-
-  menu.style.display = "none";
-  container.style.display = "block";
-  gameDiv.innerHTML = "";
-
-  EJS_player = "#game";
-  EJS_gameUrl = url;
-  EJS_core = core;
-  EJS_gameName = name;
-
-  EJS_color = getComputedStyle(document.documentElement)
-      .getPropertyValue('--title-color')
-      .trim();
-
-  EJS_startOnLoaded = true;
-
-  // Lance l'émulateur
-  if (typeof EJS_load === "function") EJS_load();
-}
-
-window.loadGame = loadGame;
-
 // === Système de thème ===
 const themeToggle = document.getElementById('theme-toggle');
 
@@ -123,7 +63,6 @@ themeToggle.addEventListener('click', () => {
     themeToggle.textContent = '☀️';
   }
 });
-
 </script>
 
 </body>
